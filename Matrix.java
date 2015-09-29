@@ -16,6 +16,7 @@ public class Matrix {
     
     public void setValues()
     {
+        System.out.println("Element Row 1 Column 1:");
     
         
         
