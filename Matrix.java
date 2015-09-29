@@ -1,38 +1,46 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package matrix;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+/**
+ *
+ * @author Luana Menezes
+ */
 public class Matrix {
-    private double m1, m2;
-    public void Matrix()
-    {
-        
-    
-    }
-    
-    public void setSize()
-    {
-        System.out.println("Size of matrix one:");
-        System.out.println("Size of matrix two:");
-        
-    
-    }
-    
-    public void setValues()
-    {
-        System.out.println("Element Row 1 Column 1:");
-    
-        
-        
-    }  
-    
-    public void multiplyMatrix()
-    {
-        
-    
-    }
 
-    @Override
-    public String toString()
+    private void readFromFile()
     {
-
-        return s;
+        
+        try
+        {
+            File f = new File("C:/Users/Luana Menezes/Documents/NetBeansProjects/Matrix/src/matrix.txt");
+            Scanner input = new Scanner(f);
+            int[][] m = new int[5][5];
+            for (int i = 0; i < 5; i++){
+                for (int j = 0; j < 5; j++){
+                m[i][j] = input.nextInt();
+            
+            }
+            }
+            System.out.println(m);           
+        }
+        catch(FileNotFoundException fnfe)
+        {
+            System.out.println(fnfe.getMessage());
+        }
     }
-
+    
+    public static void main(String[] args)
+    {
+        Matrix matrixIO = new Matrix();
+        
+        matrixIO.readFromFile();
+    }
+    
 }
