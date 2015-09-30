@@ -5,42 +5,75 @@
  */
 package matrix;
 
+import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
+import java.io.FileReader;
+import java.io.IOException;
+
 /**
  *
  * @author Luana Menezes
  */
 public class Matrix {
+    
+    public void readFile(String f) throws java.io.FileNotFoundException,java.io.IOException{ 
+     
+        try {
+        File fil = new File("c:/matrix.txt");
+        FileReader dataFile = new FileReader(fil);
+        BufferedReader in = new BufferedReader(dataFile);
 
-    private void readFromFile()
-    {
+        String m = in.readLine();
+
+        int size = m.length();
+
+        String [][] matrix = new String [size][size];
+
+        double d = 0;
+        String line = m;
+        String[] split = m.split(", ");    
         
-        try
-        {
-            File f = new File("C:/Users/Luana Menezes/Documents/NetBeansProjects/Matrix/src/matrix.txt");
-            Scanner input = new Scanner(f);
-            int[][] m = new int[5][5];
-            for (int i = 0; i < 5; i++){
-                for (int j = 0; j < 5; j++){
-                m[i][j] = input.nextInt();
-            
-            }
-            }
-            System.out.println(m);           
+       /* for(int i = 0; i < split.length; i++)
+        { 
+             d = Double.parseDouble(split[i]);
+             matrix[0][i] = d;
+        } */
+               
+          for (int j = 0; j < 8; j++)
+          {
+              
+               matrix[0][j] = String.valueOf(split[j]);
+          }
+          for (int i = 1; (line = in.readLine()) != null; ++i)
+          {
+                for (int j = 0; j < 8; j++) 
+                {
+                   matrix[i][j] = String.valueOf(line.charAt(j));
+                }
+          }
+
+           for (int i = 0; i < 8; i++) 
+           {
+                for (int j = 0; j < 8; j++) 
+                {
+                   System.out.print(matrix[i][j] + " ");
+                }
+             System.out.println("");
+           }
+
         }
-        catch(FileNotFoundException fnfe)
+        catch (IOException e1)
         {
-            System.out.println(fnfe.getMessage());
+            e1.printStackTrace();
         }
-    }
+}  
     
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) throws IOException
+    {        
         Matrix matrixIO = new Matrix();
-        
-        matrixIO.readFromFile();
+        matrixIO.readFile("c:/matrix.txt");
+       
     }
+  }
     
-}
+
