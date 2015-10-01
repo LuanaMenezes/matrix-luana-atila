@@ -9,7 +9,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
@@ -20,12 +19,36 @@ import java.util.Scanner;
  * @author Luana Menezes
  */
 public class Matrix {
-    
    
-    public static void readFile(Path path, String file) throws IOException
+    private String fileName;
+   
+    
+     public String getFile()
+    {
+        return fileName;
+    }
+    
+    public String setFile(String f)
+    {
+        try
+        {
+            if(f != null || f != "")
+            {
+                this.fileName = f;
+            }  
+        }
+        catch(NullPointerException e)
+        {
+            System.out.println("This file does not exists.");
+        }
+        
+        return fileName;
+    }
+   
+    public static void readFile(String file) throws IOException
     {
             
-            List<String> lines = Files.readAllLines(path, StandardCharsets.UTF_8);
+            List<String> lines = Files.readAllLines(Paths.get(file), StandardCharsets.UTF_8);
                  
             //Some variables
            String[] count = null;
@@ -102,9 +125,8 @@ public class Matrix {
     public static void main(String[] args) throws IOException
     {        
         Matrix matrix = new Matrix();
-        Path p = Paths.get("c:/matrix.txt");
-        String f = "c:/matrix.txt";
-        matrix.readFile(p, f);
+        String f = matrix.setFile("c:/matrix.txt");
+        matrix.readFile(f);
         
     }
   }
