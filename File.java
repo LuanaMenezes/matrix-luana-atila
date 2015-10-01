@@ -38,7 +38,8 @@ public class File extends Matrix{
     
     public static void readFile(String file) throws IOException
     {
-            
+           try
+           {
             List<String> lines = Files.readAllLines(Paths.get(file), StandardCharsets.UTF_8);
                  
             //Some variables
@@ -89,4 +90,10 @@ public class File extends Matrix{
              }     
     }
     
+     catch (IOException e) 
+     {
+                System.out.println("File does not exists !");
+                System.exit(0);
+     }
+  }
 }
