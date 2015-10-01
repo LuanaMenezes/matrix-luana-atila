@@ -16,16 +16,14 @@ public class File extends Matrix{
     
     public String setFile(String f)
     {
-        try
+        if(f != null && f != "")
         {
-            if(f != null || f != "")
-            {
-                this.fileName = f;
-            }  
+            this.fileName = f;
         }
-        catch(NullPointerException e)
+        else
         {
-            System.out.println("This file does not exists.");
+            System.out.println("File does not exists !");
+            System.exit(0);
         }
         
         return fileName;
