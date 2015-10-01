@@ -21,6 +21,10 @@ import java.util.Scanner;
 public class Matrix {
    
     private String fileName;
+    private static double[][] matrix1;
+    private static double[][] matrix2;
+    private static double[][] result;
+    private static boolean allow = true;
    
     
      public String getFile()
@@ -65,9 +69,9 @@ public class Matrix {
             count1 = Integer.parseInt(count[0]);
             count2 = Integer.parseInt(count[1]);
             count3 = Integer.parseInt(count[2]);     
-            double[][] matrix1 = new double[count1][count2];
-            double[][] matrix2 = new double[count2][count3];
-            double[][] result = new double[count1][count3];
+            matrix1 = new double[count1][count2];
+            matrix2 = new double[count2][count3];
+            result = new double[count1][count3];
             
             // For the first matrix 
              int rowIndex = 0;
@@ -81,19 +85,7 @@ public class Matrix {
                  matrix1[rowIndex][columnIndex] = Double.parseDouble(tokens[columnIndex]);}  //convert every token to a double
                  rowIndex=rowIndex + 1;
              }
-              
-             // Print first matrix - Is not necessary
-             for(int i =0; i<count1; i++)
-             {
-                for(int j=0; j<count2; j++)
-                {
-                    System.out.print(matrix1[i][j] + " ");
-                }
-
-                System.out.println("\n");
-              }
-             
-             
+     
               // For the second matrix 
               
              int numlines = 3;
@@ -109,24 +101,64 @@ public class Matrix {
                  rowIndex=rowIndex + 1;
              }
               
-            // Print second matrix - Is not necessary
-             for(int i =0; i<count2; i++)
-             {
-                for(int j=0; j<count3; j++)
-                {
-                    System.out.print(matrix2[i][j] + " ");
-                }
-
-                System.out.println("\n");
-              }
+          
     }
+    public void mutiply()
+    {
+        if(matrix1[0].length == matrix2.length) // Verify if number of columns of matrix1 is equals to number of rows of matrix2
+        {
+            for(int i=0; i<matrix1.length;i++)
+            {
+                for(int j=0; j<matrix2[0].length;j++)
+                {
+                    for(int k=0; k<matrix1[0].length;k++) 
+                    {
+                        result[i][j] += matrix1[i][k] * matrix2[k][j];
+                    }
+                }
+            }
+        }
+        else
+        {
+            System.out.println("Cannot multiply these matrices. "
+                    + "Number of columns of matrix A differs from number of rows of matrix B");
+            allow = false;
+        }
+    }
+
+    public String toString(double matrix[][])
+    {
+	String output = "";
+
+	for (int i=0; i<matrix.length; i++)
+        {
+            for (int j=0; j<matrix[0].length; j++)
+            {
+		output += "["+ matrix[i][j] + "]\t";
+            }	
+            output +="\n";	
+        }	
+	return output; 
+    }
+
    
     
     public static void main(String[] args) throws IOException
     {        
         Matrix matrix = new Matrix();
-        String f = matrix.setFile("c:/matrix.txt");
+     //   String f = matrix.setFile("c:/matrix.txt"); // For Windows
+        String desktop = System.getProperty ("user.home") + "/Desktop/"; // For Mac OS
+        String f = matrix.setFile(desktop + "matrix.txt"); // For Mac OS
         matrix.readFile(f);
-        
+        matrix.mutiply();
+        if(allow)
+        {
+            System.out.println("\nMatrix A\n");
+            System.out.print(matrix.toString(matrix1));
+            System.out.println("\nMatrix B\n");
+            System.out.print(matrix.toString(matrix2));
+            System.out.println("\nMatrix C = A * B\n");
+            System.out.print(matrix.toString(result));
+        }
     }
   }
